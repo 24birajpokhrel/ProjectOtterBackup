@@ -1,6 +1,6 @@
 # 🦦 ProjectOtter
 
-> **A Chrome extension that makes the web more accessible for students with dyslexia, ADHD, and color vision deficiencies.**
+> **A Chrome extension that makes the web more accessible for students with Dyslexia, ADHD, and Color Vision deficiencies.**
 
 Project Otter injects a suite of non-invasive accessibility tools into any webpage helping students read more comfortably, stay focused, and reduce visual stress all without modifying the page's content.
 
