@@ -1,0 +1,23 @@
+/*
+ * AccessiLens — styles/global.css
+ *
+ * Injected into EVERY webpage via manifest.json content_scripts.css.
+ * Use this file for styles that must apply to the host page from OUTSIDE
+ * a Shadow DOM — i.e., styles that content scripts need the host page to
+ * inherit or that cannot be scoped to a Shadow root.
+ *
+ * CURRENT STATUS: Intentionally empty.
+ *   - Focus Ruler styles live in ruler-shadow.css (injected into Shadow DOM)
+ *   - Visual Filters styles are injected programmatically by visual-filters.js
+ *   - Typography styles will be injected programmatically by typography-engine.js
+ *
+ * WHEN TO ADD RULES HERE:
+ *   - Font-face declarations (e.g. OpenDyslexic for typography-engine)
+ *   - Global CSS custom property overrides on :root
+ *   - Any reset rules that features depend on being present before they run
+ *
+ * DO NOT ADD:
+ *   - Opinionated layout or visual styles that affect normal page rendering
+ *   - Rules that would conflict with host page styles without !important guards
+ *   - Large amounts of CSS — keep this file minimal and purposeful
+ */
