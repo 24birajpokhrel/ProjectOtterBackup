@@ -1,35 +1,9 @@
 /**
- * AccessiLens — content-scripts/visual-filters.js
- *
  * Visual filter engine. Injected into every webpage via manifest.json.
  * Handles three features:
  *   1. Color Overlay  — fixed semi-transparent tint div (reduces visual stress)
  *   2. Dark Mode      — CSS class + style injection on <html>
  *   3. CVD Filter     — SVG feColorMatrix filter for colorblindness simulation
- *
- * Architecture mirrors focus-ruler.js exactly:
- *   - IIFE with guard flag (prevents double-injection)
- *   - Reads window.STORAGE_KEYS set by storage-helper.js (loaded first)
- *   - init() reads storage on page load, enables active features
- *   - registerMessageListener() always runs regardless of enabled state
- *   - Each feature is fully independent: enable/disable/update functions
- *
- * Depends on: utils/storage-helper.js (loaded before this in manifest.json)
- *
- * Message types handled:
- *   COLOR_OVERLAY_TOGGLE   { enabled, settings?: { color, opacity } }
- *   COLOR_OVERLAY_UPDATE   { settings: { color?, opacity? } }
- *   DARK_MODE_TOGGLE       { enabled }
- *   CVD_FILTER_TOGGLE      { enabled, settings?: { mode } }
- *   CVD_FILTER_UPDATE      { settings: { mode } }
- *   REAPPLY_STATE          { state: <full storage object> }  — sent by service worker on navigation
- *
- * Engine code adapted from CB folder content.js. Key changes:
- *   - Flat key storage (not nested blob)
- *   - chrome.storage.local (not sync)
- *   - AccessiLens-namespaced element IDs
- *   - Split into discrete enable/disable/update functions per feature
- *   - REAPPLY_STATE handler added for post-navigation re-application
  */
 
 ;(() => {
@@ -63,9 +37,6 @@
     const DEFAULT_MODE    = 'none';
   
     // ── SVG Color Matrix Filters ────────────────────────────────────────────────
-    // Clinically-derived feColorMatrix values for CVD simulation.
-    // Applied to document.documentElement so images AND text are filtered —
-    // unlike CSS-only solutions that only affect background/text colors.
     const CVD_MATRICES = {
       protanopia: `
         <filter id="al-protanopia">
@@ -94,10 +65,6 @@
     };
   
     // ── Dark Mode CSS ────────────────────────────────────────────────────────────
-    // Injected as a <style> tag when dark mode is enabled.
-    // Targets the most common element types so host page styles are overridden.
-    // Uses the .accessilens-dark class on <html> as a scope — doesn't affect
-    // any page that hasn't opted in.
     const DARK_MODE_CSS = `
       html.accessilens-dark,
       html.accessilens-dark body {
@@ -157,7 +124,6 @@
       if (!el) {
         el = document.createElement('div');
         el.id = IDS.OVERLAY;
-        // z-index 2147483645: below Focus Ruler (2147483647) and its shadow host
         Object.assign(el.style, {
           position       : 'fixed',
           top            : '0',
