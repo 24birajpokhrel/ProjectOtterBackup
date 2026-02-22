@@ -5,7 +5,7 @@
 
 > **A Chrome extension that makes the web more accessible for students with dyslexia, ADHD, and color vision deficiencies.**
 
-Project Otter injects a suite of non-invasive accessibility tools into any webpage — helping students read more comfortably, stay focused, and reduce visual stress — all without modifying the page's content.
+Project Otter injects a suite of non-invasive accessibility tools into any webpage helping students read more comfortably, stay focused, and reduce visual stress all without modifying the page's content.
 
 ---
 
@@ -39,8 +39,8 @@ ProjectOtter/
 ├── background/
 │   └── service-worker.js       # MV3 service worker: TTS, keyboard shortcuts, tab navigation guard
 ├── content-scripts/
-│   ├── focus-ruler.js          # Focus Ruler engine (Shadow DOM, rAF loop, CSS custom properties)
-│   ├── visual-filters.js       # Color overlay, dark mode, and CVD filter injection
+│   ├── focus-ruler.js          # Focus Ruler engine (Shadow DOM and CSS custom properties)
+│   ├── visual-filters.js       # Color overlay and Dark mode
 │   ├── typography.js           # Font override and text scaling via injected <style> tags
 │   └── tts-engine.js           # Text selection listener → TTS via chrome.tts API
 ├── utils/
@@ -112,14 +112,3 @@ Project Otter is a **Manifest V3** Chrome extension with four layers:
 - CSS with Shadow DOM isolation
 - Chrome APIs: `storage`, `tts`, `tabs`, `scripting`, `runtime`, `commands`
 - Font: [OpenDyslexic](https://opendyslexic.org/) (bundled locally)
-- UI Fonts: DM Sans & DM Mono (Google Fonts)
-
----
-
-## 📄 License
-
-MIT — see `LICENSE` for details.
-
----
-
-*Built with ❤️ to make the web a more readable place.*
