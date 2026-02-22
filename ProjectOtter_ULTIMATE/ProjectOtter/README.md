@@ -116,18 +116,6 @@ Project Otter is a **Manifest V3** Chrome extension with four layers:
 
 ---
 
-## 🤝 Contributing
-
-This project was built as a team effort. Each feature module is designed to be self-contained — you can work on `visual-filters.js`, `typography.js`, or the popup UI independently without touching other modules.
-
-Key conventions:
-- All storage keys live in `utils/storage-helper.js` — add new keys there first
-- Content scripts use IIFE + guard flags (`window.__alXxxLoaded`) to prevent double-injection
-- The popup sends messages directly to the active tab — no background relay needed
-- Shadow DOM CSS for the Focus Ruler is kept in sync between `ruler-shadow.css` and the inlined `getRulerCSS()` in `focus-ruler.js`
-
----
-
 ## 📄 License
 
 MIT — see `LICENSE` for details.
