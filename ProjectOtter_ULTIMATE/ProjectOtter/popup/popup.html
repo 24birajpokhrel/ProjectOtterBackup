@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Otter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-circle">🦦</div>
+      <div class="logo-text">
+        <span class="logo-title">Project Otter</span>
+        <span class="logo-sub">accessibility toolkit</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="active-badge hidden" id="activeBadge">● active</span>
+    </div>
+  </div>
+
+  <div class="preview-bar" id="previewBar"></div>
+
+  <div class="accordion">
+
+    <div class="accordion-item" id="section-adhd">
+      <button class="accordion-header" data-section="adhd">
+        <div class="accordion-header__left">
+          <span class="accordion-icon">🧠</span>
+          <div>
+            <span class="accordion-label">ADHD</span>
+            <span class="accordion-desc">Focus &amp; distraction tools</span>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="accordion-content hidden" id="content-adhd">
+        <div class="feature-card" id="card-ruler">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Focus Ruler</span>
+              <span class="feature-card__desc">Reading mask that follows your cursor</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="rulerToggle" role="switch" aria-label="Enable Focus Ruler"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+          <div class="feature-card__body hidden" id="body-ruler">
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="heightRange">Strip Height</label>
+                <span class="setting-row__value" id="heightOutput">40 px</span>
+              </div>
+              <input type="range" id="heightRange" min="16" max="140" value="40" step="2"/>
+              <div class="slider-legend"><span>Narrow</span><span>Wide</span></div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="opacityRange">Dim Intensity</label>
+                <span class="setting-row__value" id="opacityOutput">75%</span>
+              </div>
+              <input type="range" id="opacityRange" min="10" max="95" value="75" step="5"/>
+              <div class="slider-legend"><span>Light</span><span>Dark</span></div>
+            </div>
+            <div class="kbd-hint">
+              <kbd>Alt</kbd><kbd>Shift</kbd><kbd>R</kbd>
+              <span>keyboard shortcut</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card" id="card-tts">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Text to Speech</span>
+              <span class="feature-card__desc">Read aloud highlighted text</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="ttsToggle" role="switch" aria-label="Enable TTS"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+          <div class="feature-card__body hidden" id="body-tts">
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="ttsSpeedRange">Voice Speed</label>
+                <span class="setting-row__value" id="ttsSpeedOutput">1.0x</span>
+              </div>
+              <input type="range" id="ttsSpeedRange" min="0.5" max="2.0" value="1.0" step="0.1"/>
+              <div class="slider-legend"><span>Slow</span><span>Fast</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" id="section-dyslexia">
+      <button class="accordion-header" data-section="dyslexia">
+        <div class="accordion-header__left">
+          <span class="accordion-icon">📖</span>
+          <div>
+            <span class="accordion-label">Dyslexia</span>
+            <span class="accordion-desc">Font &amp; typography tools</span>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="accordion-content hidden" id="content-dyslexia">
+        <div class="feature-card" id="card-overlay">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Color Overlay</span>
+              <span class="feature-card__desc">Tint that reduces visual stress</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="overlayToggle" role="switch" aria-label="Enable Color Overlay"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+          <div class="feature-card__body hidden" id="body-overlay">
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <span class="setting-row__label">Tint Color</span>
+              </div>
+              <div class="swatch-grid" id="swatchGrid" role="radiogroup" aria-label="Tint color">
+                <button class="swatch selected" data-color="#ffff99" style="background:#ffff99;" title="Soft Yellow" role="radio" aria-checked="true"></button>
+                <button class="swatch" data-color="#c8e6ff" style="background:#c8e6ff;" title="Sky Blue" role="radio" aria-checked="false"></button>
+                <button class="swatch" data-color="#d4f4dd" style="background:#d4f4dd;" title="Mint Green" role="radio" aria-checked="false"></button>
+                <button class="swatch" data-color="#ffd6e8" style="background:#ffd6e8;" title="Rose Pink" role="radio" aria-checked="false"></button>
+                <button class="swatch" data-color="#e8d5ff" style="background:#e8d5ff;" title="Lavender" role="radio" aria-checked="false"></button>
+                <button class="swatch" data-color="#ffe0c0" style="background:#ffe0c0;" title="Peach" role="radio" aria-checked="false"></button>
+                <label class="swatch swatch--custom" title="Custom color">
+                  <span aria-hidden="true">+</span>
+                  <input type="color" id="customColor" value="#ffff99" aria-label="Custom tint color"/>
+                </label>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="overlayOpacityRange">Strength</label>
+                <span class="setting-row__value" id="overlayOpacityOutput">15%</span>
+              </div>
+              <input type="range" id="overlayOpacityRange" min="5" max="50" value="15" step="1"/>
+              <div class="slider-legend"><span>Subtle</span><span>Strong</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card teammate-zone" id="card-dyslexia-font">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Specialized Font</span>
+              <span class="feature-card__desc">Enhance readability with unique typefaces</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="dyslexiaFontToggle" role="switch" aria-label="Enable Font"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+          <div class="feature-card__body hidden" id="body-dyslexia">
+            <div class="setting-row">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="fontSelect">Font Family</label>
+              </div>
+              <select id="fontSelect" class="styled-select" style="width: 100%; padding: 8px; margin-top: 6px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 8px; font-family: inherit; font-size: 13px; outline: none; cursor: pointer;">
+                <option value="default">Original Website Font</option>
+                <option value="OpenDyslexic">OpenDyslexic</option>
+                <option value="Arial">Arial</option>
+                <option value="Comic Sans MS">Comic Sans</option>
+                <option value="sans-serif">Sans-Serif</option>
+              </select>
+            </div>
+            <div class="setting-row" style="margin-top:12px;">
+              <div class="setting-row__head">
+                <label class="setting-row__label" for="textScaleRange">Text Size</label>
+                <span class="setting-row__value" id="textScaleOutput">100%</span>
+              </div>
+              <input type="range" id="textScaleRange" min="50" max="200" value="100" step="5"/>
+              <div class="slider-legend"><span>Small</span><span>Large</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" id="section-colorblind">
+      <button class="accordion-header" data-section="colorblind">
+        <div class="accordion-header__left">
+          <span class="accordion-icon">🎨</span>
+          <div>
+            <span class="accordion-label">Color Blindness</span>
+            <span class="accordion-desc">Visual filters &amp; dark mode</span>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="accordion-content hidden" id="content-colorblind">
+        <div class="feature-card" id="card-dark">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Dark Mode</span>
+              <span class="feature-card__desc">Reduces eye strain in low light</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="darkToggle" role="switch" aria-label="Enable Dark Mode"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="feature-card" id="card-cvd">
+          <div class="feature-card__header">
+            <div class="feature-card__info">
+              <span class="feature-card__name">Colorblindness Filter</span>
+              <span class="feature-card__desc">SVG matrix filter for CVD simulation</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="cvdToggle" role="switch" aria-label="Enable Filter"/>
+              <span class="toggle__track"></span>
+              <span class="toggle__thumb"></span>
+            </label>
+          </div>
+          <div class="feature-card__body hidden" id="body-cvd">
+            <div class="setting-row">
+              <p class="chip-group-label">🔴 Red-Green</p>
+              <div class="chip-group" role="radiogroup">
+                <button class="chip" data-mode="protanopia" role="radio" aria-checked="false">Protanopia</button>
+                <button class="chip" data-mode="deuteranopia" role="radio" aria-checked="false">Deuteranopia</button>
+              </div>
+              <p class="chip-group-label" style="margin-top:8px;">🔵 Blue-Yellow</p>
+              <div class="chip-group">
+                <button class="chip" data-mode="tritanopia" role="radio" aria-checked="false">Tritanopia</button>
+              </div>
+              <div class="feature-card__warning" style="font-size: 10px; margin-top: 10px; opacity: 0.7;">
+                ⚠ Filters simulate CVD for testing, not vision correction.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer__status">
+      <span class="footer__dot" id="statusDot"></span>
+      <span class="footer__text" id="statusText">No features active</span>
+    </div>
+    <div class="footer__right">
+      <span class="footer__page" id="footerPage"></span>
+      <button class="reset-btn" id="resetBtn">Reset all</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

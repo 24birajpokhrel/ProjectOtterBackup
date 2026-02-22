@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "Project Otter",
+  "short_name": "ProjectOtter",
+  "version": "1.0.0",
+  "description": "Educational accessibility tools for students with dyslexia, ADHD, and colorblindness.",
+
+  "icons": {
+    "16": "assets/icons/logo.png",
+    "48": "assets/icons/logo.png",
+    "128": "assets/icons/logo.png"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Open Project Otter",
+    "default_icon": {
+      "16": "assets/icons/logo.png",
+      "48": "assets/icons/logo.png",
+      "128": "assets/icons/logo.png"
+    }
+  },
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "tts"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "utils/storage-helper.js",
+        "content-scripts/focus-ruler.js",
+        "content-scripts/visual-filters.js",
+        "content-scripts/typography.js",
+        "content-scripts/tts-engine.js"
+      ],
+      "css": [
+        "styles/global.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "styles/global.css",
+        "styles/ruler-shadow.css",
+        "assets/icons/logo.png",
+        "assets/icons/fonts/OpenDyslexic3-Regular.ttf"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

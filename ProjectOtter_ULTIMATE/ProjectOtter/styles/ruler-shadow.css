@@ -1,0 +1,98 @@
+/*
+ * AccessiLens — styles/ruler-shadow.css
+ *
+ * Injected into a CLOSED Shadow DOM by focus-ruler.js.
+ * Host page CSS cannot override these rules.
+ * These rules cannot leak out to the host page.
+ *
+ * !! IMPORTANT — DUAL COPY WARNING !!
+ * The CSS in this file is ALSO inlined as a string inside the getRulerCSS()
+ * function in content-scripts/focus-ruler.js (pre-bundler pattern).
+ * If you change anything here, change it there too. They must stay identical.
+ * Post-bundler: focus-ruler.js will import this file via esbuild text loader,
+ * eliminating the duplicate.
+ *
+ * CSS Variable API (all set by focus-ruler.js via setVar()):
+ *   --ruler-y        Vertical center of reading strip (px)
+ *   --ruler-height   Height of transparent window (px)
+ *   --dim-opacity    Opacity of dimmed regions, 0.0–1.0
+ *   --vw             Viewport width (updated on resize)
+ *   --vh             Viewport height (updated on resize)
+ */
+
+/* ── Shadow host reset ───────────────────────────────────────────────────── */
+:host {
+    all            : initial;
+    display        : block;
+    position       : fixed;
+    inset          : 0;
+    width          : 0;      /* Host has no size — overlay child does the painting */
+    height         : 0;
+    pointer-events : none;
+    z-index        : 2147483647;
+  }
+  
+  /* ── Main overlay ─────────────────────────────────────────────────────────── */
+  .ruler-overlay {
+    position       : fixed;
+    inset          : 0;
+    width          : var(--vw, 100vw);
+    height         : var(--vh, 100vh);
+    pointer-events : none;
+  
+    /*
+     * Single-element gradient masking — three zones with HARD STOPS.
+     * Rendering is GPU-only: changing --ruler-y causes a repaint, not a layout.
+     *
+     * Zone 1: opaque dim  →  0px to (center - height/2)
+     * Zone 2: transparent →  the reading window
+     * Zone 3: opaque dim  →  (center + height/2) to 100%
+     */
+    background: linear-gradient(
+      to bottom,
+  
+      rgba(0, 0, 0, var(--dim-opacity, 0.75)) 0px,
+      rgba(0, 0, 0, var(--dim-opacity, 0.75))
+        calc(var(--ruler-y, 50vh) - var(--ruler-height, 40px) / 2),
+  
+      transparent
+        calc(var(--ruler-y, 50vh) - var(--ruler-height, 40px) / 2),
+      transparent
+        calc(var(--ruler-y, 50vh) + var(--ruler-height, 40px) / 2),
+  
+      rgba(0, 0, 0, var(--dim-opacity, 0.75))
+        calc(var(--ruler-y, 50vh) + var(--ruler-height, 40px) / 2),
+      rgba(0, 0, 0, var(--dim-opacity, 0.75)) 100%
+    );
+  
+    will-change : background;
+  }
+  
+  /* ── Edge accent lines ───────────────────────────────────────────────────── */
+  .ruler-overlay::before,
+  .ruler-overlay::after {
+    content        : '';
+    position       : absolute;
+    left           : 0;
+    width          : 100%;
+    height         : 1px;
+    pointer-events : none;
+    background     : rgba(245, 200, 66, 0.5);   /* Amber — matches --clr-accent */
+    box-shadow     : 0 0 6px 1px rgba(245, 200, 66, 0.2);
+  }
+  
+  .ruler-overlay::before {
+    top : calc(var(--ruler-y, 50vh) - var(--ruler-height, 40px) / 2);
+  }
+  
+  .ruler-overlay::after {
+    top : calc(var(--ruler-y, 50vh) + var(--ruler-height, 40px) / 2);
+  }
+  
+  /* ── Reduced motion ──────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .ruler-overlay::before,
+    .ruler-overlay::after {
+      box-shadow : none;
+    }
+  }
