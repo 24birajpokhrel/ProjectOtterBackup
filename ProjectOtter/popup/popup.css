@@ -64,8 +64,7 @@
   background: var(--clr-border-2); 
   border-radius: 10px; 
 }
-::-webkit-scrollbar-thumb:hover { background: var(--clr-accent-muted); }
-
+::-webkit-scrollbar-thumb:hover { background: var(--clr-accent-dim); }
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 body {
   width                  : 380px;
