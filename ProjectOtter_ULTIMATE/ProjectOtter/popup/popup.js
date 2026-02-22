@@ -79,8 +79,8 @@ const cardCvd     = document.getElementById('card-cvd');
 // Dyslexia 
 const dyslexiaFontToggle = document.getElementById('dyslexiaFontToggle');
 const fontSelect         = document.getElementById('fontSelect');
-const textScaleRange     = document.getElementById('textScaleRange');
-const textScaleOutput    = document.getElementById('textScaleOutput');
+//const textScaleRange     = document.getElementById('textScaleRange');
+//const textScaleOutput    = document.getElementById('textScaleOutput');
 const bodyDyslexia       = document.getElementById('body-dyslexia');
 const cardDyslexiaFont   = document.getElementById('card-dyslexia-font');
 
@@ -154,8 +154,8 @@ accordionItems.forEach(item => {
     // Dyslexia 
     if (dyslexiaFontToggle) dyslexiaFontToggle.checked = s[KEYS.DYSLEXIA_FONT];
     if (fontSelect) fontSelect.value = s[KEYS.FONT_FAMILY];
-    if (textScaleRange) textScaleRange.value = s[KEYS.TEXT_SCALE];
-    if (textScaleOutput) textScaleOutput.textContent = `${s[KEYS.TEXT_SCALE]}%`;
+   // if (textScaleRange) textScaleRange.value = s[KEYS.TEXT_SCALE];
+    //if (textScaleOutput) textScaleOutput.textContent = `${s[KEYS.TEXT_SCALE]}%`;
     expandBody(bodyDyslexia, s[KEYS.DYSLEXIA_FONT]);
     cardDyslexiaFont?.classList.toggle('active', s[KEYS.DYSLEXIA_FONT]);
 
@@ -318,18 +318,18 @@ fontSelect?.addEventListener('change', async () => {
     cardDyslexiaFont?.classList.add('active');
     refreshFooter();
   }
-  sendToAllTabs({ 
-    type: 'SET_STATE', 
-    state: { dyslexia: { enabled: dyslexiaFontToggle.checked, font: font } } 
+  sendToAllTabs({
+    type: 'SET_STATE',
+    state: {dyslexia: {enabled: dyslexiaFontToggle.checked, font: font}}
   });
-});
+  });
 
-textScaleRange?.addEventListener('input', () => {
-  const scale = parseInt(textScaleRange.value, 10);
-  if (textScaleOutput) textScaleOutput.textContent = `${scale}%`;
-  chrome.storage.local.set({ [KEYS.TEXT_SCALE]: scale });
-  sendToAllTabs({ type: 'TEXT_SCALE_UPDATE', settings: { scale } });
-});
+//textScaleRange?.addEventListener('input', () => {
+  //const scale = parseInt(textScaleRange.value, 10);
+ // if (textScaleOutput) textScaleOutput.textContent = `${scale}%`;
+ // chrome.storage.local.set({ [KEYS.TEXT_SCALE]: scale });
+ // sendToAllTabs({ type: 'TEXT_SCALE_UPDATE', settings: { scale } });
+//});
 
 ttsToggle?.addEventListener('change', async () => {
   const enabled = ttsToggle.checked;
@@ -374,8 +374,8 @@ resetBtn?.addEventListener('click', async () => {
 
   if (dyslexiaFontToggle) dyslexiaFontToggle.checked = false;
   if (fontSelect) fontSelect.value = 'default';
-  if (textScaleRange) textScaleRange.value = 100;
-  if (textScaleOutput) textScaleOutput.textContent = '100%';
+  //if (textScaleRange) textScaleRange.value = 100;
+ // if (textScaleOutput) textScaleOutput.textContent = '100%';
 
   if (ttsToggle) ttsToggle.checked = false;
   if (ttsSpeedRange) ttsSpeedRange.value = 1.0;
@@ -469,13 +469,13 @@ function autoOpenActiveSection(s) {
   }
 }
 
-async function sendToAllTabs(message) {
-  try {
-    const tabs = await chrome.tabs.query({});
-    for (const tab of tabs) {
-      if (tab.url && !tab.url.startsWith("chrome://")) {
-        chrome.tabs.sendMessage(tab.id, message).catch(() => {});
+  async function sendToAllTabs(message) {
+    try {
+      const tabs = await chrome.tabs.query({});
+      for (const tab of tabs) {
+        if (tab.url && !tab.url.startsWith("chrome://")) {
+          chrome.tabs.sendMessage(tab.id, message).catch(() => {});
+        }
       }
-    }
-  } catch (_) {}
-}
+    } catch (_) {}
+  }
