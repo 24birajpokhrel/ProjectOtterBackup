@@ -25,7 +25,7 @@ Project Otter injects a suite of non-invasive accessibility tools into any webpa
 | Feature | Description |
 |---|---|
 | **Dark Mode** | Inverts page brightness to reduce eye strain in low-light environments. |
-| **CVD Filter** | Applies SVG color matrix filters to simulate Protanopia, Deuteranopia, or Tritanopia — useful for testing accessible designs. |
+| **CVD Filter** | Applies SVG color matrix filters to simulate Protanopia, Deuteranopia, or Tritanopia useful for testing accessible designs. |
 
 ---
 
