@@ -11,7 +11,7 @@ Project Otter injects a suite of non-invasive accessibility tools into any webpa
 ### 🧠 ADHD Tools
 | Feature | Description |
 |---|---|
-| **Focus Ruler** | A reading mask that follows your cursor, dimming everything except a configurable horizontal strip — so you stay locked on one line at a time. Uses Shadow DOM for full CSS isolation from the host page. |
+| **Focus Ruler** | A reading mask that follows your cursor, dimming everything except a configurable horizontal strip so you stay locked on one line at a time. Uses Shadow DOM for full CSS isolation from the host page. |
 | **Text to Speech** | Highlight any text on the page and have it read aloud using the Chrome TTS API. Configurable voice speed. |
 
 ### 📖 Dyslexia Tools
