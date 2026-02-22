@@ -1,24 +1,4 @@
-/*
- * AccessiLens — styles/ruler-shadow.css
- *
- * Injected into a CLOSED Shadow DOM by focus-ruler.js.
- * Host page CSS cannot override these rules.
- * These rules cannot leak out to the host page.
- *
- * !! IMPORTANT — DUAL COPY WARNING !!
- * The CSS in this file is ALSO inlined as a string inside the getRulerCSS()
- * function in content-scripts/focus-ruler.js (pre-bundler pattern).
- * If you change anything here, change it there too. They must stay identical.
- * Post-bundler: focus-ruler.js will import this file via esbuild text loader,
- * eliminating the duplicate.
- *
- * CSS Variable API (all set by focus-ruler.js via setVar()):
- *   --ruler-y        Vertical center of reading strip (px)
- *   --ruler-height   Height of transparent window (px)
- *   --dim-opacity    Opacity of dimmed regions, 0.0–1.0
- *   --vw             Viewport width (updated on resize)
- *   --vh             Viewport height (updated on resize)
- */
+
 
 /* ── Shadow host reset ───────────────────────────────────────────────────── */
 :host {
