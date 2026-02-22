@@ -1,10 +1,4 @@
 /**
- * AccessiLens — content-scripts/focus-ruler.js
- *
- * The Focus Ruler engine. Injected into every webpage via manifest.json.
- * Creates a Shadow DOM reading mask that dims the page except for a
- * horizontal strip following the user's cursor.
- *
  * Architecture:
  *   - Shadow DOM (mode: 'closed') for full CSS isolation from host page
  *   - Single-element CSS gradient masking (avoids 1px gap at non-integer DPR)
@@ -12,15 +6,6 @@
  *   - CSS custom properties as the sole JS→CSS interface (GPU compositing)
  *   - chrome.storage.local for persistent state
  *   - chrome.runtime.onMessage for live popup → content script control
- *
- * Change log vs original:
- *   - Renamed guard flag: __projectOtterRulerLoaded → __alRulerLoaded
- *   - Renamed shadow host ID: __otter-ruler-host__ → __al-ruler-host__
- *   - Renamed console prefix: [ProjectOtter] → [AccessiLens]
- *   - Added REAPPLY_STATE handler (service worker sends this on navigation)
- *
- * Depends on: utils/storage-helper.js (loaded before this in manifest.json)
- * Globals available: window.STORAGE_KEYS, window.StorageHelper
  */
 
 ;(() => {
@@ -224,8 +209,6 @@
     }
   
     // ── Inlined Shadow DOM CSS ────────────────────────────────────────────────
-    // IMPORTANT: Keep this in sync with styles/ruler-shadow.css.
-    // Post-bundler: replace this function with an esbuild text import.
     function getRulerCSS() {
       return /* css */ `
         :host {
