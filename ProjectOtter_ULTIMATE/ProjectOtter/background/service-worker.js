@@ -1,7 +1,5 @@
 /**
  * Project Otter — background/service-worker.js
- *
- * MV3 service workers are ephemeral — never store live state here.
  * All persistent state lives in chrome.storage.local.
  */
 
